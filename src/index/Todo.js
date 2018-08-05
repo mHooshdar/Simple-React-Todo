@@ -9,46 +9,69 @@ class Todo extends Component {
   constructor (props) {
     super(props);
 
-    this.state= {
-      backgroundColor: ""
-    };
+    this.state={
+      text: this.props.text
+    }
+
+    this.remove = this.remove.bind(this);
+    this.edit = this.edit.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
   }
-  componentDidMount(){
-    if(this.props.mode === 0){
-      this.setState({backgroundColor: "green"});
-    }
-    else if(this.props.mode === 1){
-      this.setState({backgroundColor: "blue"});
-    }
-    else if(this.props.mode === 2){
-      this.setState({backgroundColor: "red"});
-    }
+  remove(){
+    this.props.remove(this.props.id);
   }
-  
+  edit(){
+    var todo = prompt("Please edit this", this.props.text);
+    if (todo !== null && todo !== "") {
+      this.setState({
+        text: todo
+      })
+    }
+    this.props.edit(this.props.id, todo);
+  }
+  next(){
+    this.props.next(this.props.id);
+  }
+  prev(){
+    this.props.prev(this.props.id);
+  }
+
   render() {
     let start = false;
     let end = false;
+    let backgroundColor;
     if(this.props.mode === 0){
       start = true;
     }
-    if(this.props.mode === 2){
+    else if(this.props.mode === 2){
       end = true;
     }
+
+    if(this.props.mode === 0){
+      backgroundColor = "green";
+    }
+    else if(this.props.mode === 1){
+      backgroundColor = "blue";
+    }
+    else if(this.props.mode === 2){
+      backgroundColor = "red";
+    }
     return (
-      <div className="todo" style={{borderColor: this.state.backgroundColor}}>
+      <div className="todo" style={{borderColor: backgroundColor}}>
         <div className="buttons-container">
-          <img src={remove} className="todo-buttons remove"/>
-          <img src={edit} className="todo-buttons edit"/>
+          <img onClick={this.remove} src={remove} className="todo-buttons remove"/>
+          <img onClick={this.edit} src={edit} className="todo-buttons edit"/>
         </div>
         <div className="text-container">
-          {this.props.text}
+          {this.state.text}
         </div>
         <div className="next-prev-container">
           {
-            end ? (<img className="next-prev-buttons"/>) : (<img src={next} className="next-prev-buttons next"/>)
+            end ? (<img className="next-prev-buttons-empty"/>) : (<img onClick={this.next} src={next} className="next-prev-buttons next"/>)
           }
           {
-            start ? (<img className="next-prev-buttons"/>) : (<img src={prev} className="next-prev-buttons prev"/>)
+            start ? (<img className="next-prev-buttons-empty"/>) : (<img onClick={this.prev} src={prev} className="next-prev-buttons prev"/>)
           }
         </div>
       </div>

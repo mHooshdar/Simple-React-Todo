@@ -7,15 +7,105 @@ class TodoContainer extends Component {
     super(props);
 
     this.state= {
-      todos: []
+      todos: [],
+      addValue: ""
     };
     this.addClick = this.addClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.remove = this.remove.bind(this);
+    this.edit = this.edit.bind(this);
+    this.next = this.next.bind(this);
+    this.prev = this.prev.bind(this);
+    this.addNextPrev = this.addNextPrev.bind(this);
+  }
+
+  remove(id){
+    let todoIndex = 0;
+    this.state.todos.forEach(element => {
+      if(element.id === id){
+        this.state.todos.splice(todoIndex, 1);
+      }
+      todoIndex++;
+    })
+    let removedTodo = this.state.todos;
+    this.setState({
+      todos: removedTodo
+    });
+  }
+
+  edit(id, text){
+    let todoIndex = 0;
+    this.state.todos.forEach(element => {
+      if(element.id === id){
+        this.state.todos[todoIndex].text = text;
+      }
+      todoIndex++;
+    })
+    let editedTodo = this.state.todos;
+    this.setState({
+      todos: editedTodo
+    });
+  }
+
+  next(id){
+    let todo = 0;
+    let todoIndex = 0;
+    this.state.todos.forEach(element => {
+      if(element.id === id){
+        todo = element;
+        this.state.todos.splice(todoIndex, 1);
+      }
+      todoIndex++;
+    })
+    let removedTodo = this.state.todos;
+    this.setState({
+      todos: removedTodo
+    });
+    this.props.next(todo);
+  }
+
+  prev(id){
+    let todo = 0;
+    let todoIndex = 0;
+    this.state.todos.forEach(element => {
+      if(element.id === id){
+        todo = element;
+        this.state.todos.splice(todoIndex, 1);
+      }
+      todoIndex++;
+    })
+    let removedTodo = this.state.todos;
+    this.setState({
+      todos: removedTodo
+    });
+    this.props.prev(todo);
+  }
+
+  addNextPrev(todo){
+    console.log("baaaa");
+    this.state.todos.push(todo);
+    this.setState({
+      todos: this.state.todos
+    })
   }
 
   addClick(){
-    this.setState(prevState => {
-      
-    });
+    if(this.state.addValue === ""){
+      alert("Value is empty");
+    }
+    else{
+      let newTodo = {
+        id: new Date(),
+        text: this.state.addValue,
+        mode: this.props.mode
+      }
+      this.setState({ 
+        todos: this.state.todos.concat([newTodo])
+      })
+    }
+  }
+  handleChange(event){
+    this.setState({addValue: event.target.value});
   }
 
   componentDidMount(){
@@ -114,16 +204,26 @@ class TodoContainer extends Component {
     }
   }
   render() {
+    let header;
+    if(this.props.mode === 0){
+      header = "TODO";
+    }
+    else if(this.props.mode === 1){
+      header = "DOING";
+    }
+    else if(this.props.mode === 2){
+      header = "DONE";
+    }
     return (
       <div className="todo-top">
-        <p className="text-header">5 in TODO</p>
+        <p className="text-header">{this.state.todos.length} in {header}</p>
         <div className="todo-container">
           {this.state.todos.map((todo) => 
-            <Todo key={todo.id} id={todo.id} text={todo.text} mode={todo.mode}/>
+            <Todo prev={this.prev} next={this.next} edit={this.edit} remove={this.remove} key={todo.id} id={todo.id} text={todo.text} mode={todo.mode}/>
           )}
         </div>
         <div className="add-panel">
-          <input type="text" className="add-text"/>
+          <input value={this.state.addValue} onChange={this.handleChange} type="text" className="add-text"/>
           <button className="add-button" onClick={this.addClick}>Add</button>
         </div>
       </div>
