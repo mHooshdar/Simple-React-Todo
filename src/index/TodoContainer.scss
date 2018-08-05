@@ -1,0 +1,50 @@
+@import 'src/global.scss';
+.todo-top{
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.text-header{
+  font-size: 20px;
+  text-align: center;
+}
+.todo-container{
+  padding: 10px;
+  overflow-y: scroll;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 5px #aaa;
+  height: 400px;
+}
+.add-panel{
+  display: flex;
+  height: 50px;
+  background: #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.add-button{
+  flex: 1;
+  background: cyan;
+  border: 0px;
+  height: 36px;
+  margin: 7px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+.add-text{
+  flex: 5;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 25px;
+  margin: 8px;
+  border: 0px;
+  border-radius: 3px;
+  margin-right: 0;
+  width: 100%;
+}
+.add-button{
+  cursor: pointer;
+}

@@ -1,0 +1,53 @@
+@import 'src/global.scss';
+.todo{
+  background: $gray;
+  height: 75px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #bbb;
+  border-left: 10px solid;
+  overflow-y: scroll;
+  padding: 5px 22px;
+  display: flex;
+}
+.next-prev-container{
+  flex: 1;
+}
+.buttons-container{
+  flex: 1;
+}
+.text-container{
+  flex: 3;
+}
+.todo-buttons{
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.todo-buttons:hover{
+  cursor: pointer;
+}
+.next-prev-container{
+  margin-top: 8px;
+}
+.next-prev-buttons{
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: auto;
+  margin-bottom: 2px;
+}
+.next-prev-buttons:hover{
+  cursor: pointer;
+}
+.text-container{
+  text-align: justify;
+  margin-top: 7px;
+  font-size: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}

@@ -1,0 +1,9 @@
+@import 'src/global.scss';
+.todo-list-container{
+  background-color: $gray;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  display: flex;
+}
